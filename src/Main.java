@@ -1,12 +1,29 @@
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        System.out.printf("Hello and welcome!");
+        class Bruch{
 
-        for (int i = 1; i <= 5; i++) {
+        int zähler;
+        int nenner;
 
-            System.out.println("i = " + i);
         }
+
+
+        Bruch bruch1;
+        bruch1 = new Bruch();
+        bruch1.zähler= 2;
+        bruch1.nenner = 3;
+
+        JOptionPane.showInternalMessageDialog(null,"Bruch: " + bruch1.zähler+ " / " + bruch1.nenner);
+
+        Bruch bruch2;
+        bruch2 = new Bruch();
+        bruch2.zähler = 5;
+        bruch2.nenner = 7;
+        JOptionPane.showInternalMessageDialog(null,"Bruch: " + bruch2.zähler+ " / " + bruch2.nenner);
+
     }
 }
+
