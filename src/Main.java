@@ -30,12 +30,15 @@ public class Main {
             System.out.println("Die Kugel landet auf: " + spin);
 
             boolean isEven = (spin % 2 == 0 && spin != 0);
+
             if ((choice == 1 && isEven) || (choice == 2 && !isEven)) {
                 balance += bet;
                 System.out.println("Gewonnen! +" + bet);
+
             } else if (spin == 0) {
                 balance -= bet / 2;
                 System.out.println("0 - Sie verlieren die Hälfte: -" + (bet / 2));
+
             } else {
                 balance -= bet;
                 System.out.println("Verloren! -" + bet);

@@ -58,6 +58,7 @@ public class Rechteck {
         this.laenge += l;
     }
 
+
     public void breiteVergroessern(double b) {
         this.breite += b;
     }

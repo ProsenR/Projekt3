@@ -10,6 +10,8 @@ public class KreisTest {
         double radius = Double.parseDouble(input);
 
         Kreis kreis = new Kreis(radius);
+        Kreis kreis2 = new Kreis();
+        kreis2.setRadius(4);
 
         System.out.println("Radius: " + kreis.getRadius());
         System.out.println("Umfang: " + kreis.getUmfang());
