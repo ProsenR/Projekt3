@@ -15,8 +15,24 @@ public class Spieler {
 
         Spiel spiel = new Spiel(name, klasse);
 
-        System.out.println("Spieler " + name + " wurde als " + klasse + " erstellt.");
+        System.out.println("Spieler " + spiel.getName() + " wurde als " + spiel.getSpielerKlasse() + " erstellt.");
+
+        // Hier rufen wir die zeigeEigenschaften-Methode auf
+        zeigeEigenschaften(spiel);
 
         scanner.close();
+    }
+
+    private static void zeigeEigenschaften(Spiel spiel) {
+        System.out.println("\nEigenschaften für " + spiel.getSpielerKlasse() + ":");
+        System.out.println("-----------------------------------");
+        System.out.println("Level: " + spiel.getLevel());
+        System.out.println("Angriff: " + spiel.getAngriff());
+        System.out.println("Präzision: " + spiel.getPraezision());
+        System.out.println("Vitalität: " + spiel.getVitalitaet());
+        System.out.println("Verteidigung: " + spiel.getVerteidigung());
+        System.out.println("Willenskraft: " + spiel.getWillenskraft());
+        System.out.printf("Lebensenergie: %.2f / %.2f%n", spiel.getAktLebensenergie(), spiel.getMaxLebensenergie());
+        System.out.printf("Zauberenergie: %.2f / %.2f%n", spiel.getAktZauberenergie(), spiel.getMaxZauberenergie());
     }
 }
