@@ -17,8 +17,50 @@ public class Spieler {
 
         System.out.println("Spieler " + spiel.getName() + " wurde als " + spiel.getSpielerKlasse() + " erstellt.");
 
-        // Hier rufen wir die zeigeEigenschaften-Methode auf
+        // Zeige initiale Eigenschaften
         zeigeEigenschaften(spiel);
+
+        // Level-Up-Schleife
+        while (true) {
+            System.out.println("\nMöchtest du ein Level-Up durchführen? (ja/nein)");
+            String antwort = scanner.nextLine().toLowerCase();
+            if (!antwort.equals("ja")) {
+                break;
+            }
+
+            System.out.println("Wähle bis zu zwei Eigenschaften zum Erhöhen:");
+            System.out.println("1. Angriff");
+            System.out.println("2. Präzision");
+            System.out.println("3. Vitalität");
+            System.out.println("4. Verteidigung");
+            System.out.println("5. Willenskraft");
+            System.out.println("Gib die Nummern der gewählten Eigenschaften ein (z.B. '1 3' oder '2'):");
+
+            String[] auswahl = scanner.nextLine().split(" ");
+            boolean[] erhoeheEigenschaften = new boolean[5];
+
+            for (String s : auswahl) {
+                int wahl = Integer.parseInt(s) - 1;
+                if (wahl >= 0 && wahl < 5) {
+                    erhoeheEigenschaften[wahl] = true;
+                }
+            }
+
+            boolean erfolgreich = spiel.levelUp(
+                    erhoeheEigenschaften[0],
+                    erhoeheEigenschaften[1],
+                    erhoeheEigenschaften[2],
+                    erhoeheEigenschaften[3],
+                    erhoeheEigenschaften[4]
+            );
+
+            if (erfolgreich) {
+                System.out.println("Level-Up erfolgreich!");
+                zeigeEigenschaften(spiel);
+            } else {
+                System.out.println("Level-Up nicht möglich. Entweder wurde das maximale Level erreicht oder zu viele Eigenschaften ausgewählt.");
+            }
+        }
 
         scanner.close();
     }
