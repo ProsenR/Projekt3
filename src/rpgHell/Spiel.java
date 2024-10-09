@@ -1,7 +1,6 @@
 package rpgHell;
 
 public class Spiel {
-
     private int level;
     private String name, spielerKlasse;
     private int angriff, praezision, vitalitaet, verteidigung, willenskraft;
@@ -37,22 +36,56 @@ public class Spiel {
     }
 
     private void berechneLebensUndZauberenergie() {
-        maxLebensenergie = vitalitaet * 10 * level;
+        // Setze die maximale Lebens- und Zauberenergie auf 100
+        maxLebensenergie = 100.0;
         aktuelleLebensenergie = maxLebensenergie;
-        maxZauberenergie = willenskraft * 5 * level;
+
+        maxZauberenergie = 100.0;
         aktuelleZauberenergie = maxZauberenergie;
     }
 
-    public void levelUp() {
-        if (level <= 40) {
-            level++;
-            angriff++;
-            praezision++;
-            vitalitaet++;
-            verteidigung++;
-            willenskraft++;
-            berechneLebensUndZauberenergie();
+    public boolean levelUp(boolean erhoeheAngriff, boolean erhoehePraezision, boolean erhoeheVitalitaet, boolean erhoeheVerteidigung, boolean erhoeheWillenskraft) {
+        if (level >= 40) {
+            return false;
         }
+
+        int anzahlGewaehlterEigenschaften = 0;
+        if (erhoeheAngriff) anzahlGewaehlterEigenschaften++;
+        if (erhoehePraezision) anzahlGewaehlterEigenschaften++;
+        if (erhoeheVitalitaet) anzahlGewaehlterEigenschaften++;
+        if (erhoeheVerteidigung) anzahlGewaehlterEigenschaften++;
+        if (erhoeheWillenskraft) anzahlGewaehlterEigenschaften++;
+
+        if (anzahlGewaehlterEigenschaften > 2) {
+            return false;
+        }
+
+        // Level-Up durchführen
+        level++;
+
+        // Eigenschaften erhöhen
+        if (anzahlGewaehlterEigenschaften == 1) {
+            if (erhoeheAngriff) angriff += 2;
+            if (erhoehePraezision) praezision += 2;
+            if (erhoeheVitalitaet) vitalitaet += 2;
+            if (erhoeheVerteidigung) verteidigung += 2;
+            if (erhoeheWillenskraft) willenskraft += 2;
+        } else {
+            if (erhoeheAngriff) angriff++;
+            if (erhoehePraezision) praezision++;
+            if (erhoeheVitalitaet) vitalitaet++;
+            if (erhoeheVerteidigung) verteidigung++;
+            if (erhoeheWillenskraft) willenskraft++;
+        }
+
+        // Erhöhe die maximale Lebens- und Zauberenergie um jeweils 5% pro Level-Up
+        maxLebensenergie *= 1.05; // Erhöhung um 5%
+        aktuelleLebensenergie *= (maxLebensenergie / aktuelleLebensenergie); // Aktuelle Energie neu berechnen
+
+        maxZauberenergie *= 1.05; // Erhöhung um 5%
+        aktuelleZauberenergie *= (maxZauberenergie / aktuelleZauberenergie); // Aktuelle Energie neu berechnen
+
+        return true;
     }
 
     // Getter-Methoden
@@ -88,44 +121,5 @@ public class Spiel {
         } else {
             this.aktuelleZauberenergie = energie;
         }
-    }
-    public boolean levelUp(boolean erhoeheAngriff, boolean erhoehePraezision, boolean erhoeheVitalitaet, boolean erhoeheVerteidigung, boolean erhoeheWillenskraft) {
-        if (level > 40) {
-            return false;
-        }
-
-        int anzahlGewaehlterEigenschaften = 0;
-        if (erhoeheAngriff) anzahlGewaehlterEigenschaften++;
-        if (erhoehePraezision) anzahlGewaehlterEigenschaften++;
-        if (erhoeheVitalitaet) anzahlGewaehlterEigenschaften++;
-        if (erhoeheVerteidigung) anzahlGewaehlterEigenschaften++;
-        if (erhoeheWillenskraft) anzahlGewaehlterEigenschaften++;
-
-        if (anzahlGewaehlterEigenschaften > 2) {
-            return false; // Zu viele Eigenschaften gewählt, Level-Up nicht möglich
-        }
-
-        // Level-Up durchführen
-        level++;
-
-        // Eigenschaften erhöhen
-        if (anzahlGewaehlterEigenschaften == 1) {
-            // Wenn nur eine Eigenschaft gewählt wurde, diese um 2 erhöhen
-            if (erhoeheAngriff) angriff += 2;
-            if (erhoehePraezision) praezision += 2;
-            if (erhoeheVitalitaet) vitalitaet += 2;
-            if (erhoeheVerteidigung) verteidigung += 2;
-            if (erhoeheWillenskraft) willenskraft += 2;
-        } else {
-            // Ansonsten die gewählten Eigenschaften um 1 erhöhen
-            if (erhoeheAngriff) angriff++;
-            if (erhoehePraezision) praezision++;
-            if (erhoeheVitalitaet) vitalitaet++;
-            if (erhoeheVerteidigung) verteidigung++;
-            if (erhoeheWillenskraft) willenskraft++;
-        }
-
-        berechneLebensUndZauberenergie();
-        return true; // Level-Up erfolgreich durchgeführt
     }
 }
