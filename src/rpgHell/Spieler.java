@@ -17,10 +17,8 @@ public class Spieler {
 
         System.out.println("Spieler " + spiel.getName() + " wurde als " + spiel.getSpielerKlasse() + " erstellt.");
 
-        // Zeige initiale Eigenschaften
         zeigeEigenschaften(spiel);
 
-        // Level-Up-Schleife
         while (true) {
             System.out.println("\nMöchtest du ein Level-Up durchführen? (ja/nein)");
             String antwort = scanner.nextLine().toLowerCase();
@@ -77,4 +75,4 @@ public class Spieler {
         System.out.printf("Lebensenergie: %.2f / %.2f%n", spiel.getAktLebensenergie(), spiel.getMaxLebensenergie());
         System.out.printf("Zauberenergie: %.2f / %.2f%n", spiel.getAktZauberenergie(), spiel.getMaxZauberenergie());
     }
-}
+}  

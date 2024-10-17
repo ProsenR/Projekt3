@@ -36,7 +36,7 @@ public class Spiel {
     }
 
     private void berechneLebensUndZauberenergie() {
-        // Setze die maximale Lebens- und Zauberenergie auf 100
+
         maxLebensenergie = 100.0;
         aktuelleLebensenergie = maxLebensenergie;
 
@@ -60,10 +60,8 @@ public class Spiel {
             return false;
         }
 
-        // Level-Up durchführen
         level++;
 
-        // Eigenschaften erhöhen
         if (anzahlGewaehlterEigenschaften == 1) {
             if (erhoeheAngriff) angriff += 2;
             if (erhoehePraezision) praezision += 2;
@@ -78,17 +76,16 @@ public class Spiel {
             if (erhoeheWillenskraft) willenskraft++;
         }
 
-        // Erhöhe die maximale Lebens- und Zauberenergie um jeweils 5% pro Level-Up
-        maxLebensenergie *= 1.05; // Erhöhung um 5%
-        aktuelleLebensenergie *= (maxLebensenergie / aktuelleLebensenergie); // Aktuelle Energie neu berechnen
+        maxLebensenergie *= 1.05;
+        aktuelleLebensenergie *= (maxLebensenergie / aktuelleLebensenergie);
 
-        maxZauberenergie *= 1.05; // Erhöhung um 5%
-        aktuelleZauberenergie *= (maxZauberenergie / aktuelleZauberenergie); // Aktuelle Energie neu berechnen
+        maxZauberenergie *= 1.05;
+        aktuelleZauberenergie *= (maxZauberenergie / aktuelleZauberenergie);
 
         return true;
     }
 
-    // Getter-Methoden
+    // Getter
     public String getName() { return name; }
     public String getSpielerKlasse() { return spielerKlasse; }
     public int getLevel() { return level; }
