@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Kap8.Banküberweisung.Bank">
+  <grid id="27dc6" binding="Protokoll" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="9faa0" class="javax.swing.JRadioButton" binding="radioAuszahlung">
+        <constraints>
+          <grid row="0" column="3" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="false"/>
+          <text value="Auszahlung"/>
+        </properties>
+      </component>
+      <component id="e3a0c" class="javax.swing.JRadioButton" binding="radioEinzahlung">
+        <constraints>
+          <grid row="0" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Einzahlung"/>
+        </properties>
+      </component>
+      <component id="1ff3c" class="javax.swing.JLabel" binding="betrag">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Betrag"/>
+        </properties>
+      </component>
+      <component id="ccca7" class="javax.swing.JTextField" binding="textFieldBetrag">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="7a059" class="javax.swing.JButton" binding="buttonDurchfuehren">
+        <constraints>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Durchführen"/>
+        </properties>
+      </component>
+      <component id="14077" class="javax.swing.JLabel" binding="kontostand">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Kontostand:"/>
+        </properties>
+      </component>
+      <component id="fb4d6" class="javax.swing.JLabel" binding="kontostandBetrag">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="1000€"/>
+        </properties>
+      </component>
+      <component id="7528d" class="javax.swing.JTextPane" binding="paneProtokoll">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Verlauf"/>
+        </properties>
+      </component>
+      <component id="c7a85" class="javax.swing.JLabel" binding="protokoll">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Protokoll:"/>
+        </properties>
+      </component>
+      <component id="3b92c" class="javax.swing.JLabel" binding="labelUeberweisung">
+        <constraints>
+          <grid row="0" column="0" row-span="2" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Überweisung"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+  <buttonGroups>
+    <group name="buttonGroup">
+      <member id="e3a0c"/>
+      <member id="9faa0"/>
+    </group>
+  </buttonGroups>
+</form>
