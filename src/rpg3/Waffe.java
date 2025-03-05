@@ -10,7 +10,10 @@ public class Waffe {
         this.name = name;
         this.angriffswert = angriffswert;
         this.reparaturwert = reparaturwert;
-        this.waffenTyp = "schwert"; // Standardtyp, kann später geändert werden
+        this.waffenTyp = "schwert";
+    }
+
+    public Waffe(String name, int angriffswert) {
     }
 
     public String getName() {

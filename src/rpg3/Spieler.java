@@ -1,9 +1,10 @@
 package rpg3;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 public class Spieler {
+
     // Datenfelder
     private String name, spielerKlasse;
     private int level, angriff, praezision, vitalitaet, verteidigung, willenskraft;
@@ -12,160 +13,168 @@ public class Spieler {
     private static final int MAX_LEVEL = 40;
     private Waffe ausgeruesteteWaffe;
     private Rüstungsklasse ausgeruesteteRuestung;
-    private List<Zaubertränke> trankliste;
-    private static final int MAX_TRAENKE = 5; // Höchstgrenze für Tränke
+    private Räume raum;
+    private String typ;
+    private ArrayList<Zaubertränke> tränke = new ArrayList<>(3);
 
-
-    // Konstruktor
-    public Spieler(String name, String klasse) {
+    public Spieler(String name, String typ, Räume raum) {
         this.name = name;
+        this.typ = typ;
+        this.raum = raum;
+        initializeSpieler(typ);
+    }
+
+    public ArrayList<Zaubertränke> getTränke() {
+        return tränke;
+    }
+
+    public String getTyp() {
+        return typ;
+    }
+
+    public double getMaxZauberenergie() {
+        return maxZauberenergie;
+    }
+
+    public String getSpielerKlasse() {
+        return spielerKlasse;
+    }
+    private void initializeSpieler(String klasse) {
+        level = 1;
         this.spielerKlasse = klasse;
-        this.level = 1;
-        setzeDatenfelder(klasse);
-        this.trankliste = new ArrayList<>();
-    }
-
-    public void trankAufnehmen1(Zaubertränke trank) {
-        trankliste.add(trank);
-    }
-
-    public void trankTrinken(String trankName) {
-        for (int i = 0; i < trankliste.size(); i++) {
-            Zaubertränke trank = trankliste.get(i);
-            if (trank.getName().equals(trankName)) {
-                if (trank.getName().contains("Heiltrank")) {
-                    this.lebensenergie = Math.min(this.lebensenergie + trank.getRegenerationswert(), (int)maxLebensenergie);
-                } else if (trank.getName().contains("Manatrank")) {
-                    this.zauberenergie = Math.min(this.zauberenergie + trank.getRegenerationswert(), (int)maxZauberenergie);
-                }
-                trankliste.remove(i);
-                break;
-
-            }
-        }
-    }
-
-    public List<Zaubertränke> getTrankliste() {
-        return new ArrayList<>(trankliste);
-    }
-
-    // Bestehende Methoden...
-
-    // Angepasste zeigeInfo() Methode
-    public void zeigeInfo() {
-
-
-        System.out.println("Tränke im Besitz:");
-        for (Zaubertränke trank : trankliste) {
-            System.out.println("- " + trank.getName() + " (Regenerationswert: " + trank.getRegenerationswert() + ")");
-        }
-    }
-
-    public boolean trankAufnehmen(Zaubertränke trank) {
-        if (trankliste.size() < MAX_TRAENKE) {
-            trankliste.add(trank);
-            System.out.println(name + " hat einen " + trank.getName() + " aufgenommen.");
-            return true;
-        } else {
-            System.out.println(name + " kann keine weiteren Tränke aufnehmen. Maximale Anzahl erreicht.");
-            return false;
-        }
-    }
-
-
-
-
-
-    // Methode zum Initialisieren der Datenfelder basierend auf der Spielerklasse
-    private void setzeDatenfelder(String klasse) {
-        // Überprüft die Spielerklasse und setzt entsprechend die Werte für die Attribute
         switch (klasse) {
             case "Barbar":
-                // Setzt die Attribute für den Barbar
-                angriff = 5; praezision = 3; vitalitaet = 4; verteidigung = 2; willenskraft = 1;
-                break; // Verhindert, dass der Code in den nächsten Fall übergeht
+                angriff = 5;
+                praezision = 3;
+                vitalitaet = 4;
+                verteidigung = 2;
+                willenskraft = 1;
+                break;
             case "Dämonenjäger":
-                angriff = 4; praezision = 3; vitalitaet = 2; verteidigung = 2; willenskraft = 5;
+                angriff = 4;
+                praezision = 3;
+                vitalitaet = 2;
+                verteidigung = 2;
+                willenskraft = 5;
                 break;
             case "Mönch":
-                angriff = 3; praezision = 4; vitalitaet = 3; verteidigung = 5; willenskraft = 5;
+                angriff = 3;
+                praezision = 4;
+                vitalitaet = 3;
+                verteidigung = 5;
+                willenskraft = 5;
                 break;
             case "Hexendoktor":
-                angriff = 5; praezision = 3; vitalitaet = 2; verteidigung = 1; willenskraft = 5;
+                angriff = 5;
+                praezision = 3;
+                vitalitaet = 2;
+                verteidigung = 1;
+                willenskraft = 5;
                 break;
             case "Zauberer":
-                angriff = 4; praezision = 4; vitalitaet = 2; verteidigung = 2; willenskraft = 5;
+                angriff = 4;
+                praezision = 4;
+                vitalitaet = 2;
+                verteidigung = 2;
+                willenskraft = 5;
                 break;
             default:
-                // Wenn keine der Klassen passt, werden Standardwerte gesetzt
                 System.out.println("Ungültige Klasse! Standardwerte werden verwendet.");
                 angriff = praezision = vitalitaet = verteidigung = willenskraft = 3;
         }
-        // Setzt die maximalen Lebens- und Zauberenergie des Spielers
+
         maxLebensenergie = maxZauberenergie = 10;
-        // Berechnet die aktuellen Energien des Spielers
         berechneEnergien();
     }
 
-
-    // Berechnet die aktuellen Werte für Lebensenergie und Zauberenergie
     private void berechneEnergien() {
         lebensenergie = (int) maxLebensenergie;
         zauberenergie = (int) maxZauberenergie;
     }
 
-    // Gibt Informationen über den Spieler auf der Konsole aus
-    public void zeigeInfo1() {
-        System.out.println("Klassen: " + name + ", Klasse: " + spielerKlasse + ", Level: " + level);
+    public void zeigeInfo() {
+        System.out.println("Name: " + name + ", Klasse: " + spielerKlasse + ", Level: " + level);
         System.out.println("Angriff: " + angriff + ", Präzision: " + praezision + ", Vitalität: " + vitalitaet);
         System.out.println("Verteidigung: " + verteidigung + ", Willenskraft: " + willenskraft);
-        System.out.println("Lebensenergie: " + lebensenergie + "/" + (int)maxLebensenergie);
-        System.out.println("Zauberenergie: " + zauberenergie + "/" + (int)maxZauberenergie);
-
-        // Überprüft, ob eine Waffe ausgerüstet ist
+        System.out.println("Lebensenergie: " + lebensenergie + "/" + (int) maxLebensenergie);
+        System.out.println("Zauberenergie: " + zauberenergie + "/" + (int) maxZauberenergie);
         if (ausgeruesteteWaffe != null) {
-            // Wenn eine Waffe ausgerüstet ist, wird die Methode 'zeichnen' der Waffe aufgerufen
+            System.out.println("Ausrüstete Waffe:");
             ausgeruesteteWaffe.zeichnen();
+        } else {
+            System.out.println("Keine Waffe ausgerüstet.");
         }
 
-// Überprüft, ob eine Rüstung ausgerüstet ist
         if (ausgeruesteteRuestung != null) {
-            // Wenn eine Rüstung ausgerüstet ist, wird die Methode 'zeichnen' der Rüstung aufgerufen
+            System.out.println("Ausrüstete Rüstung:");
             ausgeruesteteRuestung.zeichnen();
+        } else {
+            System.out.println("Keine Rüstung ausgerüstet.");
         }
-
     }
 
-
-
-
-
-    // Methode, um zu überprüfen, ob der Spieler das maximale Level erreicht hat
     public boolean isMaxLevel() {
         return level >= MAX_LEVEL;
     }
 
-    // Getter-Methoden,manche noch kein gebrauch
-    public int getLevel() { return level; }
-    public String getName() { return name; }
-    public String getSpielerKlasse() { return spielerKlasse; }
-    public int getAngriff() { return angriff; }
-    public int getPraezision() { return praezision; }
-    public int getVitalitaet() { return vitalitaet; }
-    public int getVerteidigung() { return verteidigung; }
-    public int getWillenskraft() { return willenskraft; }
-    public int getLebensenergie() { return lebensenergie; }
-    public int getZauberenergie() { return zauberenergie; }
-    public double getMaxLebensenergie() { return maxLebensenergie; }
-    public double getMaxZauberenergie() { return maxZauberenergie; }
+    // Getter-Methoden
+    public String getName() {
+        return name;
+    }
 
-    // Methoden für Waffen und Rüstungen, hier wird geprüft, ob der Charakter bereits eine Waffe ausgerüstet hat.
-    //Falls ja, wird der Angriffswert dieser Waffe vom Gesamtangriffswert des Charakters addiert
+    public String getKlasse() {
+        return spielerKlasse;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getAngriff() {
+        return angriff;
+    }
+
+    public int getPraezision() {
+        return praezision;
+    }
+
+    public int getVitalitaet() {
+        return vitalitaet;
+    }
+
+    public int getVerteidigung() {
+        return verteidigung;
+    }
+
+    public int getWillenskraft() {
+        return willenskraft;
+    }
+
+    public int getLebensenergie() {
+        return lebensenergie;
+    }
+
+    public int getZauberenergie() {
+        return zauberenergie;
+    }
+
+    public Räume getRaum() {
+        return raum;
+    }
+
+    public Waffe getAusgeruesteteWaffe() {
+        return ausgeruesteteWaffe;
+    }
+
+    public Rüstungsklasse getAusgeruesteteRuestung() {
+        return ausgeruesteteRuestung;
+    }
 
     public void waffeAusruesten(Waffe waffe) {
         if (this.ausgeruesteteWaffe != null) {
             this.angriff -= this.ausgeruesteteWaffe.getAngriffswert();
         }
+
         this.ausgeruesteteWaffe = waffe;
         this.angriff += waffe.getAngriffswert();
     }
@@ -177,11 +186,11 @@ public class Spieler {
         }
     }
 
-    //gleich wie bei waffeausruesten
     public void ruestungAusruesten(Rüstungsklasse ruestung) {
         if (this.ausgeruesteteRuestung != null) {
             this.verteidigung -= this.ausgeruesteteRuestung.getRüstungswert();
         }
+
         this.ausgeruesteteRuestung = ruestung;
         this.verteidigung += ruestung.getRüstungswert();
     }
@@ -192,46 +201,102 @@ public class Spieler {
             this.ausgeruesteteRuestung = null;
         }
     }
-    //Gegner: Böser Ork, Standarttyp/vv
-    public void angreifen(Spieler gegner) {
-        int maxSchaden = this.angriff;
-        int schaden = (int) (Math.random() * (maxSchaden + 1));
 
-        if (this.ausgeruesteteWaffe != null) {
-            if (gegner.getVerteidigung() > this.ausgeruesteteWaffe.getAngriffswert()) {
-                schaden = 0;
+    public void angreifen(Spieler gegner) {
+        if (gegner.getRaum().equals(raum)) {
+            Random random = new Random();
+            int zufallsZahl = random.nextInt(angriff / 2, angriff + 1);
+            if (zufallsZahl > gegner.getVerteidigung()) {
+                gegner.lebensenergie -= zufallsZahl - gegner.getVerteidigung();
+                System.out.println("Angriff passiert");
             } else {
-                schaden = Math.max(0, schaden - gegner.getVerteidigung());
-            }
-            int neuerReparaturwert = this.ausgeruesteteWaffe.getReparaturwert() + schaden / 2;
-            this.ausgeruesteteWaffe.setReparaturwert(neuerReparaturwert);
-            if (neuerReparaturwert >= 100) {
-                this.waffeAblegen();
+                System.out.println("Gegner hat erfolgreich geblockt!");
             }
         } else {
-            schaden = Math.max(0, schaden - gegner.getVerteidigung());
+            System.out.println("Spieler befindet sich nicht im selben Raum");
         }
-
-        gegner.nimmSchaden(schaden);
     }
-    //schaden nehmen
-    private void nimmSchaden(int schaden) {
-        // Überprüfe, ob Rüstung getragen wird
-        if (this.ausgeruesteteRuestung != null) {
-            // Berechne den Schaden, den die Rüstung absorbiert
-            int absorbierterSchaden = Math.min(schaden, this.ausgeruesteteRuestung.getRüstungswert());
-            schaden -= absorbierterSchaden; // Subtrahiere den absorbierten Schaden vom Gesamtschaden
 
-            // Aktualisiere den Reparaturwert der Rüstung
-            int neuerReparaturwert = this.ausgeruesteteRuestung.getReparaturwert() + absorbierterSchaden / 2;
-            this.ausgeruesteteRuestung.setReparaturwert(neuerReparaturwert);
-
-            // Ablage der Rüstung, wenn der Reparaturwert 100 erreicht
-            if (neuerReparaturwert >= 100) {
-                this.ruestungAblegen();
-            }
+    public void raumWechseln() {
+        if (raum.getKey().equals("oben") || raum.getKey().equals("unten") || raum.getKey().equals("links") || raum.getKey().equals("rechts")) {
+            raum = (Räume) raum.getRaeume().get("mitte");
+            raum.raumFuellen();
         }
-        // Anpassung der Lebensenergie nach Abzug des verbleibenden Schadens
-        this.lebensenergie = Math.max(0, this.lebensenergie - schaden);
+    }
+
+    public void raumWechseln(int richtung) {
+        Räume neuerRaum = null;
+        if (richtung == 1) {
+            neuerRaum = (Räume) raum.getRaeume().get("oben");
+        } else if (richtung == 2) {
+            neuerRaum = (Räume) raum.getRaeume().get("rechts");
+        } else if (richtung == 3) {
+            neuerRaum = (Räume) raum.getRaeume().get("unten");
+        } else if (richtung == 4) {
+            neuerRaum = (Räume) raum.getRaeume().get("links");
+        } else {
+            System.out.println("Fehler!");
+            return;
+        }
+
+        if (neuerRaum != null) {
+            raum = neuerRaum;
+            raum.raumFuellen();
+        } else {
+            System.out.println("Kein Raum in dieser Richtung!");
+        }
+    }
+
+    public void raumUntersuchen() {
+        ArrayList<Object> inhalt = new ArrayList<>();
+        inhalt.add(raum.getSpieler());
+        inhalt.add(raum.getWaffen());
+        inhalt.add(raum.getRüstung());
+        inhalt.add(raum.getTraenke());
+        System.out.println(inhalt);
+    }
+
+    public double getMaxLebensenergie() {
+        return maxLebensenergie;
+    }
+
+    public ArrayList<Zaubertränke> getTraenke() {
+        return tränke;
+    }
+
+    public void tranktrinken() {
+        if (!tränke.isEmpty()) {
+            Zaubertränke trank = tränke.remove(0);
+            lebensenergie = Math.min(lebensenergie + trank.getRegenerationswert(), (int)maxLebensenergie);
+            System.out.println("Du hast einen Trank getrunken und " + trank.getRegenerationswert() + " Lebensenergie regeneriert.");
+        } else {
+            System.out.println("Du hast keine Tränke!");
+        }
+    }
+
+
+    public class Zaubertränke {
+        private int regenerationswert;
+        public Zaubertränke(int regenerationswert) {
+            this.regenerationswert = regenerationswert;
+        }
+
+        public int getRegenerationswert() {
+            return regenerationswert;
+        }
+
+        public void setRegenationswert(int regenerationswert) {
+            this.regenerationswert = regenerationswert;
+        }
+    }
+
+
+    public void trankaufnehmen(Zaubertränke trank) {
+        if (tränke.size() < 3) {
+            tränke.add(trank);
+            System.out.println("Der Trank wurde aufgenommen. Regenerationswert: " + trank.getRegenerationswert());
+        } else {
+            System.out.println("Du kannst nicht mehr als 3 Tränke tragen!");
+        }
     }
 }

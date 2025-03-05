@@ -1,16 +1,13 @@
 package rpg3;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Zaubertränke {
 
         private String name;
-        private int regenerationswert;
+        private int Regenerationswert;
 
-        public Zaubertränke(String name, int regenerationswert) {
+        public Zaubertränke(int regenerationswert) {
             this.name = name;
-            this.regenerationswert = regenerationswert;
+            Regenerationswert = regenerationswert;
         }
 
         public String getName() {
@@ -18,7 +15,7 @@ public class Zaubertränke {
         }
 
         public int getRegenerationswert() {
-            return regenerationswert;
+            return Regenerationswert;
         }
-    }
+}
 

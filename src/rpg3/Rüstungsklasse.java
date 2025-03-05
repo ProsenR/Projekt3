@@ -10,18 +10,19 @@ public class Rüstungsklasse {
         this.name = name;
         this.rüstungswert = rüstungswert;
         this.reparaturwert = reparaturwert;
-        this.rüstungsTyp = "brustplatte"; // Standardtyp
+        this.rüstungsTyp = "Brustplatte";
     }
-    // Getter-Methoden: Sie schützen die Daten und verhindern direkten Zugriff von außen.
 
-    // Methode, um den Namen eines Objekts zurückzugeben
+
+    public Rüstungsklasse(String name, int rüstungswert) {
+    }
+
     public String getName() {
-        return name; // Gibt den Wert des Attributs "name" zurück
+        return name;
     }
 
-    // Methode, um den Rüstungswert eines Objekts zurückzugeben
     public int getRüstungswert() {
-        return rüstungswert; // Gibt den Wert des Attributs "rüstungswert" zurück
+        return rüstungswert;
     }
 
 
@@ -38,47 +39,62 @@ public class Rüstungsklasse {
     }
 
     public void zeichnen() {
+
+
+        switch (rüstungsTyp.toLowerCase()) {
+            case "helm":
+                System.out.println("       _______");
+                System.out.println("      /       \\");
+                System.out.println("     /  O   O  \\");
+                System.out.println("    |    ___    |");
+                System.out.println("     \\  \\___/  /");
+                System.out.println("      \\_______/");
+                break;
+            case "brustplatte":
+                System.out.println("     __________");
+                System.out.println("    /  ______  \\");
+                System.out.println("   /  /      \\  \\");
+                System.out.println("  |  |        |  |");
+                System.out.println("  |  |        |  |");
+                System.out.println("   \\  \\______/  /");
+                System.out.println("    \\__________/");
+                break;
+            case "beinschienen":
+                System.out.println("       _   _");
+                System.out.println("      | | | |");
+                System.out.println("      | | | |");
+                System.out.println("      | | | |");
+                System.out.println("      | | | |");
+                System.out.println("      |_| |_|");
+                System.out.println("      /_\\ /_\\");
+                break;
+            case "stiefel":
+                System.out.println("       _____   _____");
+                System.out.println("      |     | |     |");
+                System.out.println("      |     | |     |");
+                System.out.println("      |_____| |_____|");
+                System.out.println("     /______\\/______\\");
+                break;
+
+        }
+
         System.out.println("┌─────────────────────────┐");
         System.out.println("│ Rüstung: " + name);
         System.out.println("│ Rüstungswert: " + rüstungswert);
         System.out.println("│ Reparaturwert: " + reparaturwert);
-
-        switch (rüstungsTyp.toLowerCase()) {
-            case "helm":
-                System.out.println("│      _______");
-                System.out.println("│     /       \\");
-                System.out.println("│    /  O   O  \\");
-                System.out.println("│   |    ___    |");
-                System.out.println("│    \\  \\___/  /");
-                System.out.println("│     \\_______/");
-                break;
-            case "brustplatte":
-                System.out.println("│    __________");
-                System.out.println("│   /  ______  \\");
-                System.out.println("│  /  /      \\  \\");
-                System.out.println("│ |  |        |  |");
-                System.out.println("│ |  |        |  |");
-                System.out.println("│  \\  \\______/  /");
-                System.out.println("│   \\__________/");
-                break;
-            case "beinschienen":
-                System.out.println("│      _   _");
-                System.out.println("│     | | | |");
-                System.out.println("│     | | | |");
-                System.out.println("│     | | | |");
-                System.out.println("│     | | | |");
-                System.out.println("│     |_| |_|");
-                System.out.println("│     /_\\ /_\\");
-                break;
-            case "stiefel":
-                System.out.println("│      _____   _____");
-                System.out.println("│     |     | |     |");
-                System.out.println("│     |     | |     |");
-                System.out.println("│     |_____| |_____|");
-                System.out.println("│    /______\\/______\\");
-                break;
-
-        }
         System.out.println("└─────────────────────────┘");
     }
+
+    public void erhoehereparaturwert(int wert) {
+        reparaturwert += wert;
+        if (reparaturwert > 100) {
+            reparaturwert = 100;
+        }
+
+    }
+
+    public boolean istKaputt() {
+        return reparaturwert >= 100;
+    }
+
 }
